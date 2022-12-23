@@ -1,0 +1,24 @@
+{
+  "name": "store-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergio-pomarico/ts-node-projectp-setup.git"
+  },
+  "keywords": [],
+  "author": "Sergio Pomárico <sergiodavid21@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergio-pomarico/ts-node-projectp-setup/issues"
+  },
+  "homepage": "https://github.com/sergio-pomarico/ts-node-projectp-setup#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.17",
+    "typescript": "^4.9.4"
+  }
+}
