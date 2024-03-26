@@ -1,3 +1,14 @@
-const sum = (a: number, b: number) => a + b;
+import 'reflect-metadata';
+import { Server } from '#presentation/server';
+import { env } from './config/env';
+import { database } from './data/connection';
 
-export default sum;
+(() => {
+  main();
+})();
+
+async function main() {
+  await database.connect();
+  const server = new Server(env.server.port);
+  await server.start();
+}
