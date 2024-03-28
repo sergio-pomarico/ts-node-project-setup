@@ -1,6 +1,6 @@
-import TODOModel from '#data/models/todo.model';
+import TODOModel from '#infrastructure/data/models/todo.model';
 import TODOEntity from '#domain/entities/todo';
-import { datasource } from '#data/connection';
+import { datasource } from '#infrastructure/data/connection';
 import { RepositoryError } from '#domain/errors/repository';
 import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
 import { TODORepository } from '#domain/repositories/todo';

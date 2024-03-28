@@ -1,4 +1,4 @@
-import { env } from '../config/env';
+import { env } from '../../config/env';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 interface Options {

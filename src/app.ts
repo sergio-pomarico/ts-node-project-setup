@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Server } from '#presentation/server';
 import { env } from './config/env';
-import { database } from '#data/connection';
+import { database } from '#infrastructure/data/connection';
 
 (() => {
   main();

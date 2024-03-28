@@ -39,9 +39,6 @@
     ],
     "#domain/*": [
       "./src/domain/*.ts"
-    ],
-    "#data/*": [
-      "./src/data/*.ts"
     ]
   },
   "devDependencies": {
