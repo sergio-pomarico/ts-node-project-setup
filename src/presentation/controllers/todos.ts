@@ -1,77 +1,51 @@
-import { datasource } from '#data/connection';
-import TODOModel from '#data/models/todo.model';
 import { Request, Response } from 'express';
+import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
+import { TODORepository } from '#domain/repositories/todo';
+import { GetTodoByIdUseCase } from '#domain/use-cases/todo/get-by-id';
+import { CreateTodoUseCase } from '#domain/use-cases/todo/create';
+import { GetAllTodoUseCase } from '#domain/use-cases/todo/all';
+import { UpdateTodoUseCase } from '#domain/use-cases/todo/update';
+import { DeleteTodoUseCase } from '#domain/use-cases/todo/delete';
 
 export class TODOsController {
-  constructor() {}
+  constructor(private readonly repository: TODORepository) {}
 
   getById = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const repository = datasource.getRepository(TODOModel);
-      const todo = await repository.findOne({ where: { id } });
-      return res.json(todo);
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
-      }
-    }
+    const { id } = req.params;
+    new GetTodoByIdUseCase(this.repository)
+      .run(id)
+      .then((todo) => res.json({ status: 'success', todo }))
+      .catch((error) => res.status(400).json(error));
   };
 
   create = async (req: Request, res: Response) => {
-    try {
-      const repository = datasource.getRepository(TODOModel);
-      const newTodo = repository.create(req.body);
-      repository.save(newTodo);
-      return res.json(newTodo);
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
-      }
-    }
+    const todoDTO = CreateTodoDTO.create(req.body);
+    new CreateTodoUseCase(this.repository)
+      .run(todoDTO)
+      .then((todo) => res.json({ status: 'success', todo }))
+      .catch((error) => res.status(400).json(error));
   };
 
   all = async (req: Request, res: Response) => {
-    try {
-      const repository = datasource.getRepository(TODOModel);
-      const todos = await repository.find();
-      return res.json(todos);
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
-      }
-    }
+    new GetAllTodoUseCase(this.repository)
+      .run()
+      .then((todos) => res.json({ status: 'success', todos }))
+      .catch((error) => res.status(400).json(error));
   };
 
   update = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const repository = datasource.getRepository(TODOModel);
-      const todo = await repository.findOne({ where: { id } });
-      if (todo === null)
-        throw Error('Cannot update a TODO that does not exist');
-      repository.merge(todo, req.body);
-      return res.json(todo);
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
-      }
-    }
+    const { id } = req.params;
+    const updateTodoDTO = UpdateTodoDTO.create(req.body);
+    new UpdateTodoUseCase(this.repository)
+      .run(id, updateTodoDTO)
+      .then((todo) => res.json({ status: 'success', todo }))
+      .catch((error) => res.status(400).json(error));
   };
 
   delete = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const repository = datasource.getRepository(TODOModel);
-      const todo = await repository.findOne({ where: { id } });
-      if (todo === null)
-        throw Error('Cannot delete a TODO that does not exist');
-      await repository.remove(todo);
-      return res.json(todo);
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
-      }
-    }
+    const { id } = req.params;
+    new DeleteTodoUseCase(this.repository)
+      .run(id)
+      .then((todo) => res.json({ status: 'success', todo }));
   };
 }
