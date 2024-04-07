@@ -22,11 +22,11 @@ export class UpdateTodoDTO {
     public completed?: boolean,
   ) {}
 
-  static create(data: { [key in keyof TODOEntity]: unknown }): UpdateTodoDTO {
+  static create(data: { [key: string]: unknown }): UpdateTodoDTO {
     return new UpdateTodoDTO(
-      data.title as string,
-      data.dueDate as Date,
-      data.completed as boolean,
+      data?.title as string | undefined,
+      data?.dueDate as Date | undefined,
+      data?.completed as boolean | undefined,
     );
   }
 

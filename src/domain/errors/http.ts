@@ -1,6 +1,8 @@
+import { ErrorCode } from './code';
+
 class ErrorDetails {
   constructor(
-    public readonly code: string,
+    public readonly code: ErrorCode,
     public readonly message: string,
     public readonly description: string,
   ) {}
@@ -12,7 +14,7 @@ export class HttpError extends Error {
   constructor(
     public readonly message: string,
     description: string,
-    code: string,
+    code: ErrorCode,
     public readonly status: 'fail' | 'error',
     public readonly statusCode: number,
   ) {
@@ -24,7 +26,7 @@ export class HttpError extends Error {
   static badRequest(
     message: string,
     description: string,
-    code: string,
+    code: ErrorCode = ErrorCode.BAD_REQUEST,
   ): HttpError {
     return new HttpError(message, description, code, 'error', 400);
   }
@@ -32,7 +34,7 @@ export class HttpError extends Error {
   static unauthorize(
     message: string,
     description: string,
-    code: string,
+    code: ErrorCode = ErrorCode.UNAUTHORIZED,
   ): HttpError {
     return new HttpError(message, description, code, 'error', 401);
   }
@@ -40,7 +42,7 @@ export class HttpError extends Error {
   static forbiden(
     message: string,
     description: string,
-    code: string,
+    code: ErrorCode = ErrorCode.FORBIDDEN,
   ): HttpError {
     return new HttpError(message, description, code, 'error', 403);
   }
@@ -48,14 +50,14 @@ export class HttpError extends Error {
   static notFound(
     message: string,
     description: string,
-    code: string,
+    code: ErrorCode = ErrorCode.RESOURCE_NOT_FOUND,
   ): HttpError {
     return new HttpError(message, description, code, 'error', 404);
   }
 
   static internalServer(
     description: string,
-    code: string,
+    code: ErrorCode = ErrorCode.INTERNAL_SERVER,
     message: string = 'Internal Server Error',
   ) {
     return new HttpError(message, description, code, 'fail', 500);
