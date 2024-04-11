@@ -10,7 +10,7 @@ export const env = {
     username: get('DB_USER').required().asString(),
     name: get('DB_NAME').required().asString(),
     password: get('DB_PASSWORD').required().asString(),
-    ssl: false,
+    ssl: get('DB_SSL').required().asBool(),
   },
   server: {
     port: get('SERVER_PORT').required().asPortNumber(),

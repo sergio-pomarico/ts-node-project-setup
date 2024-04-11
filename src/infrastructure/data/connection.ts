@@ -19,17 +19,18 @@ export class Database {
   public datasource: DataSource;
   private config: DataSourceOptions;
 
-  async connect(): Promise<void> {
+  async connect(): Promise<boolean | null> {
     try {
       await this.datasource.initialize();
       console.info('🔌 PostgreSQL connected');
+      return true;
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error('💥 error: ', error);
         throw Error(error.message);
       }
     }
-    return;
+    return null;
   }
 
   setConfig(options: Options): DataSourceOptions {

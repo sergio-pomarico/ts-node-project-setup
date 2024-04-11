@@ -8,7 +8,9 @@ import { database } from '#infrastructure/data/connection';
 })();
 
 async function main() {
-  await database.connect();
-  const server = new Server(env.server.port);
-  await server.start();
+  const isConnected = await database.connect();
+  if (isConnected) {
+    const server = new Server(env.server.port);
+    await server.start();
+  }
 }
