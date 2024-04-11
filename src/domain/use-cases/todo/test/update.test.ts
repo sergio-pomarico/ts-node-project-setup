@@ -1,6 +1,6 @@
-import { UpdateTodoUseCase } from '../update';
-import TODOEntity from '../../../entities/todo';
-import { UpdateTodoDTO } from '../../../dto/todo';
+import { UpdateTodoUseCase } from '#domain/use-cases/todo/update';
+import TODOEntity from '#domain/entities/todo';
+import { UpdateTodoDTO } from '#domain/dto/todo';
 import { randomUUID } from 'node:crypto';
 
 describe('UpdateTodoUseCase test', () => {

@@ -76,13 +76,13 @@ export class TODORepositoryImpl implements TODORepository {
         throw new RepositoryError(
           'Cannot delete a TODO that does not exist',
           'delete',
-          'TODORepository',
+          this.name,
         );
       await repository.remove(todo);
       return todo;
     } catch (error) {
       if (error instanceof Error) {
-        throw new RepositoryError(error.message, 'delete', 'TODORepository');
+        throw new RepositoryError(error.message, 'delete', this.name);
       }
       return null;
     }

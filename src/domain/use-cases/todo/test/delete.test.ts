@@ -1,5 +1,5 @@
-import { DeleteTodoUseCase } from '../delete';
-import TODOEntity from '../../../entities/todo';
+import { DeleteTodoUseCase } from '#domain/use-cases/todo/delete';
+import TODOEntity from '#domain/entities/todo';
 import { randomUUID } from 'node:crypto';
 
 describe('DeleteTodoUseCase test', () => {
