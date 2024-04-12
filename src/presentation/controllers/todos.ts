@@ -46,6 +46,7 @@ export class TODOsController {
     const { id } = req.params;
     new DeleteTodoUseCase(this.repository)
       .run(id)
-      .then((todo) => res.json({ status: 'success', todo }));
+      .then((todo) => res.json({ status: 'success', todo }))
+      .catch((error) => res.status(400).json(error));
   };
 }
