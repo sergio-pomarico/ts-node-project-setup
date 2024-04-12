@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import { AppRoutes } from './routes/main';
 import { IncomingMessage, ServerResponse, Server as HTTPServer } from 'http';
+import errorMiddleware from './middlewares/error';
 
 export class Server {
   public readonly app: Application = express();
@@ -15,6 +16,7 @@ export class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use('/', AppRoutes.routes);
+    this.app.use(errorMiddleware);
   }
 
   async start() {

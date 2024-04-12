@@ -113,7 +113,10 @@ describe('testing TODO routes', () => {
   test('GET /todo/:id should be return error if TODO not found', async () => {
     const response = await request(server.app).get('/todo/any_id');
 
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(404);
+    expect(response.body.status).toBe('error');
+    expect(typeof response.body.error).toBe('object');
+    expect(response.body.error.code).toBe(ErrorCode.RESOURCE_NOT_FOUND);
   });
 
   /*
@@ -167,7 +170,10 @@ describe('testing TODO routes', () => {
     const response = await request(server.app).put(`/todo/any_id`).send(update);
 
     // Assert
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(404);
+    expect(response.body.status).toBe('error');
+    expect(typeof response.body.error).toBe('object');
+    expect(response.body.error.code).toBe(ErrorCode.RESOURCE_NOT_FOUND);
   });
 
   /*
@@ -203,6 +209,9 @@ describe('testing TODO routes', () => {
     const response = await request(server.app).delete(`/todo/any_id`);
 
     // Assert
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(404);
+    expect(response.body.status).toBe('error');
+    expect(typeof response.body.error).toBe('object');
+    expect(response.body.error.code).toBe(ErrorCode.RESOURCE_NOT_FOUND);
   });
 });

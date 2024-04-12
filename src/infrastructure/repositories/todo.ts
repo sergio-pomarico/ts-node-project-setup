@@ -4,19 +4,45 @@ import { datasource } from '#infrastructure/data/connection';
 import { RepositoryError } from '#domain/errors/repository';
 import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
 import { TODORepository } from '#domain/repositories/todo';
+import { ErrorCode } from '#domain/errors/code';
+import { TypeORMError } from 'typeorm';
 
 export class TODORepositoryImpl implements TODORepository {
   private name = 'TODORepository';
+  handleError = (error: Error, methodName: string) => {
+    if (error instanceof RepositoryError) {
+      throw error;
+    } else if (error instanceof TypeORMError) {
+      throw new RepositoryError(
+        error.message,
+        methodName,
+        this.name,
+        ErrorCode.DATABASE,
+      );
+    } else {
+      throw new RepositoryError(
+        error.message,
+        methodName,
+        this.name,
+        ErrorCode.INTERNAL_SERVER,
+      );
+    }
+  };
   getById = async (id: string): Promise<TODOEntity | null> => {
     try {
       const repository = datasource.getRepository(TODOModel);
       const todo = await repository.findOne({ where: { id } });
       if (todo === null)
-        throw new RepositoryError('TODO not found', 'getById', this.name);
+        throw new RepositoryError(
+          'TODO not found',
+          'getById',
+          this.name,
+          ErrorCode.RESOURCE_NOT_FOUND,
+        );
       return todo;
     } catch (error) {
       if (error instanceof Error) {
-        throw new RepositoryError(error.message, 'getById', this.name);
+        this.handleError(error, 'getById');
       }
       return null;
     }
@@ -28,7 +54,7 @@ export class TODORepositoryImpl implements TODORepository {
       return todos;
     } catch (error) {
       if (error instanceof Error) {
-        throw new RepositoryError(error.message, 'all', this.name);
+        this.handleError(error, 'all');
       }
       return null;
     }
@@ -41,7 +67,7 @@ export class TODORepositoryImpl implements TODORepository {
       return newTODO;
     } catch (error) {
       if (error instanceof Error) {
-        throw new RepositoryError(error.message, 'create', this.name);
+        this.handleError(error, 'create');
       }
       return null;
     }
@@ -58,12 +84,13 @@ export class TODORepositoryImpl implements TODORepository {
           'Cannot update a TODO that does not exist',
           'update',
           this.name,
+          ErrorCode.RESOURCE_NOT_FOUND,
         );
       const updatedTODO = repository.merge(todo, changes.values);
       return updatedTODO;
     } catch (error) {
       if (error instanceof Error) {
-        throw new RepositoryError(error.message, 'update', this.name);
+        this.handleError(error, 'update');
       }
       return null;
     }
@@ -77,12 +104,13 @@ export class TODORepositoryImpl implements TODORepository {
           'Cannot delete a TODO that does not exist',
           'delete',
           this.name,
+          ErrorCode.RESOURCE_NOT_FOUND,
         );
       await repository.remove(todo);
       return todo;
     } catch (error) {
       if (error instanceof Error) {
-        throw new RepositoryError(error.message, 'delete', this.name);
+        this.handleError(error, 'delete');
       }
       return null;
     }
