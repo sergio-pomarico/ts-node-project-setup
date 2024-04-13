@@ -42,7 +42,7 @@ jobs:
       - name: Run linter
         run: npm run lint
       - name: Generate migrations
-        run: npm run migration:generate
+        run: npm run migration:generate ./src/infrastructure/data/migrations/all
       - name: Run migrations
         run: npm run migration:run
       - name: Run tests
