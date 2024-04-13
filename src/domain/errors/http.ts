@@ -11,7 +11,7 @@ class ErrorDetails {
 export class HttpError extends Error {
   public readonly error: ErrorDetails;
 
-  constructor(
+  private constructor(
     public readonly message: string,
     description: string,
     code: ErrorCode,
