@@ -17,6 +17,19 @@ jobs:
           access_token: ${{ github.token }}
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15.1
+        env:
+          DB_USER: testing_user
+          DB_HOST: localhost
+          DB_PASSWORD: testing_password
+          DB_NAME: testing_db
+          DB_PORT: 5432
+          DB_SSL: false
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,8 +39,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: 'npm'
-          node-version: 20
+          node-version-file: '.nvmrc'
       - name: Install dependencies
         run: npm install --no-audit --no-fund --no-optional
       - name: Run linter
         run: npm run lint
+      - name: Generate migrations
+        run: npm run migration:generate
+      - name: Run migrations
+        run: npm run migration:run
+      - name: Run tests
+        run: npm run test
