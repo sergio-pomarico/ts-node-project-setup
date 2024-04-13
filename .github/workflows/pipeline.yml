@@ -37,6 +37,8 @@ jobs:
         with:
           cache: 'npm'
           node-version-file: '.nvmrc'
+      - name: Create .env file
+        run: touch .env && echo DB_USER=${{ secrets.DB_USER }} >> .env && echo DB_HOST=${{ secrets.DB_HOST }} >> .env && echo DB_NAME=${{ secrets.DB_NAME }} >> .env && echo DB_NAME=${{ secrets.DB_NAME }} >> .env && echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env && echo DB_PORT=${{ secrets.DB_PORT }} >> .env && echo DB_SSL=${{ secrets.DB_SSL }} >> .env
       - name: Install dependencies
         run: npm install --no-audit --no-fund --no-optional
       - name: Run linter
