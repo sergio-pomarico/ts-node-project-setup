@@ -2,10 +2,14 @@ import TODOEntity from '#domain/entities/todo';
 import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
 import { TODORepository } from '#domain/repositories/todo';
 import { TODODataSource } from '#domain/datasource/todo';
+import { inject, injectable } from 'inversify';
 
+@injectable()
 export class TODORepositoryImpl implements TODORepository {
-  private name = 'TODORepository';
-  constructor(private readonly dataSource: TODODataSource) {}
+  constructor(
+    @inject('TODODataSource')
+    private readonly dataSource: TODODataSource,
+  ) {}
 
   getById = async (id: string): Promise<TODOEntity | null> => {
     return this.dataSource.getById(id);

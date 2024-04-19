@@ -6,9 +6,13 @@ import { CreateTodoUseCase } from '#domain/use-cases/todo/create';
 import { GetAllTodoUseCase } from '#domain/use-cases/todo/all';
 import { UpdateTodoUseCase } from '#domain/use-cases/todo/update';
 import { DeleteTodoUseCase } from '#domain/use-cases/todo/delete';
+import { inject, injectable } from 'inversify';
 
+@injectable()
 export class TODOsController {
-  constructor(private readonly repository: TODORepository) {}
+  constructor(
+    @inject('TODORepository') private readonly repository: TODORepository,
+  ) {}
 
   getById = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;

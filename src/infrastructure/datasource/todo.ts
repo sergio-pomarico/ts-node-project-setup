@@ -6,7 +6,9 @@ import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
 import { ErrorCode } from '#domain/errors/code';
 import { TypeORMError } from 'typeorm';
 import { TODODataSource } from '#domain/datasource/todo';
+import { injectable } from 'inversify';
 
+@injectable()
 export class TODODataSourceImpl implements TODODataSource {
   private name = 'TODORepository';
   handleError = (error: Error, methodName: string) => {

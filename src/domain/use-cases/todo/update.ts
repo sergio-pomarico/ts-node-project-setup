@@ -1,9 +1,14 @@
 import { TODORepository } from '#domain/repositories/todo';
 import { UpdateTodoDTO } from '#domain/dto/todo';
 import TODOEntity from '#domain/entities/todo';
+import { inject, injectable } from 'inversify';
 
+injectable();
 export class UpdateTodoUseCase {
-  constructor(private repository: TODORepository) {}
+  constructor(
+    @inject('TODORepository')
+    private repository: TODORepository,
+  ) {}
   run = async (
     id: string,
     updateTodoDTO: UpdateTodoDTO,
