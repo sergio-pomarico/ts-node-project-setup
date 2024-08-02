@@ -88,7 +88,8 @@ export class TODODataSourceImpl implements TODODataSource {
           this.name,
           ErrorCode.RESOURCE_NOT_FOUND,
         );
-      const updatedTODO = repository.merge(todo, changes.values);
+      repository.merge(todo, changes.values);
+      const updatedTODO = await repository.save(todo);
       return updatedTODO;
     } catch (error) {
       if (error instanceof Error) {
