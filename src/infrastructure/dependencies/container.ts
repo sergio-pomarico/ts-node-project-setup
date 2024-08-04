@@ -10,6 +10,7 @@ import { GetAllTodoUseCase } from '#domain/use-cases/todo/all';
 import { DeleteTodoUseCase } from '#domain/use-cases/todo/delete';
 import { GetTodoByIdUseCase } from '#domain/use-cases/todo/get-by-id';
 import { UpdateTodoUseCase } from '#domain/use-cases/todo/update';
+import { Logger } from '#presentation/logger';
 
 const container = new Container();
 
@@ -21,5 +22,5 @@ container.bind<GetAllTodoUseCase>('GetAllTodoUseCase').to(GetAllTodoUseCase);
 container.bind<DeleteTodoUseCase>('DeleteTodoUseCase').to(DeleteTodoUseCase);
 container.bind<GetTodoByIdUseCase>('GetTodoByIdUseCase').to(GetTodoByIdUseCase);
 container.bind<UpdateTodoUseCase>('UpdateTodoUseCase').to(UpdateTodoUseCase);
-
+container.bind<Logger>('Logger').to(Logger);
 export default container;

@@ -69,6 +69,8 @@
     "express": "^4.19.2",
     "inversify": "^6.0.2",
     "pg": "^8.11.3",
+    "pino": "^9.3.2",
+    "pino-pretty": "^11.2.2",
     "reflect-metadata": "^0.2.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
