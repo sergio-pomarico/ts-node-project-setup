@@ -111,7 +111,9 @@ describe('testing TODO routes', () => {
   });
 
   test('GET /todo/:id should be return error if TODO not found', async () => {
-    const response = await request(server.app).get('/todo/any_id');
+    const response = await request(server.app).get(
+      '/todo/cf6aba5b-b792-43fd-85f3-b36e8ed52fe4',
+    );
 
     expect(response.statusCode).toBe(404);
     expect(response.body.status).toBe('error');
@@ -167,7 +169,9 @@ describe('testing TODO routes', () => {
     };
 
     // Act
-    const response = await request(server.app).put(`/todo/any_id`).send(update);
+    const response = await request(server.app)
+      .put(`/todo/cf6aba5b-b792-43fd-85f3-b36e8ed52fe4`)
+      .send(update);
 
     // Assert
     expect(response.statusCode).toBe(404);
@@ -206,7 +210,9 @@ describe('testing TODO routes', () => {
   });
   test('DELETE /todo/:id should be return error if TODO not found', async () => {
     // Act
-    const response = await request(server.app).delete(`/todo/any_id`);
+    const response = await request(server.app).delete(
+      `/todo/cf6aba5b-b792-43fd-85f3-b36e8ed52fe4`,
+    );
 
     // Assert
     expect(response.statusCode).toBe(404);
