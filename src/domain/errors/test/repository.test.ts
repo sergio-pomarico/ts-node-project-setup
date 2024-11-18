@@ -1,22 +1,18 @@
-import { RepositoryError } from '#domain/errors/repository';
+import { APIError } from '#domain/errors/api';
 import { ErrorCode } from '../code';
 
-describe('test RepositoryError', () => {
-  test('should create a RepositoryError with the correct properties', () => {
+describe('test APIError', () => {
+  test('should create a APIError with the correct properties', () => {
     // Arrange
     const description = 'Error in repository';
-    const method = 'save';
-    const repository = 'UserRepository';
-    const code = ErrorCode.DATABASE;
+    const code = ErrorCode.INTERNAL_SERVER;
 
     // Act
-    const error = new RepositoryError(description, method, repository, code);
+    const error = new APIError(description, code);
 
     // Assert
     expect(error.description).toBe(description);
-    expect(error.method).toBe(method);
-    expect(error.repository).toBe(repository);
-    expect(error.name).toBe('RepositoryError');
+    expect(error.name).toBe('APIError');
     expect(error.message).toBe(description);
     expect(error.code).toBe(code);
   });

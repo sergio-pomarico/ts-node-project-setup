@@ -1,6 +1,6 @@
 import { ErrorCode } from '#domain/errors/code';
 import { HttpError } from '#domain/errors/http';
-import { RepositoryError } from '#domain/errors/repository';
+import { APIError } from '#domain/errors/api';
 import { NextFunction, Response, Request } from 'express';
 
 const errorMiddleware = (
@@ -9,11 +9,8 @@ const errorMiddleware = (
   res: Response,
   __: NextFunction,
 ) => {
-  if (err instanceof RepositoryError) {
-    if (
-      err.code === ErrorCode.RESOURCE_NOT_FOUND ||
-      err.code === ErrorCode.DATABASE
-    ) {
+  if (err instanceof APIError) {
+    if (err.code === ErrorCode.RESOURCE_NOT_FOUND) {
       res
         .status(404)
         .send(HttpError.notFound(err.message, 'resource not found'));

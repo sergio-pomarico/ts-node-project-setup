@@ -1,7 +1,7 @@
 import TODOModel from '#infrastructure/data/models/todo.model';
 import TODOEntity from '#domain/entities/todo';
 import { datasource } from '#infrastructure/data/connection';
-import { RepositoryError } from '#domain/errors/repository';
+import { APIError } from '#domain/errors/api';
 import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
 import { ErrorCode } from '#domain/errors/code';
 import { TypeORMError } from 'typeorm';
@@ -10,24 +10,13 @@ import { injectable } from 'inversify';
 
 @injectable()
 export class TODODataSourceImpl implements TODODataSource {
-  private name = 'TODORepository';
-  handleError = (error: Error, methodName: string) => {
-    if (error instanceof RepositoryError) {
+  handleError = (error: Error) => {
+    if (error instanceof APIError) {
       throw error;
     } else if (error instanceof TypeORMError) {
-      throw new RepositoryError(
-        error.message,
-        methodName,
-        this.name,
-        ErrorCode.DATABASE,
-      );
+      throw new APIError(error.message, ErrorCode.INTERNAL_SERVER);
     } else {
-      throw new RepositoryError(
-        error.message,
-        methodName,
-        this.name,
-        ErrorCode.INTERNAL_SERVER,
-      );
+      throw new APIError(error.message, ErrorCode.INTERNAL_SERVER);
     }
   };
   getById = async (id: string): Promise<TODOEntity | null> => {
@@ -35,16 +24,11 @@ export class TODODataSourceImpl implements TODODataSource {
       const repository = datasource.getRepository(TODOModel);
       const todo = await repository.findOne({ where: { id } });
       if (todo === null)
-        throw new RepositoryError(
-          'TODO not found',
-          'getById',
-          this.name,
-          ErrorCode.RESOURCE_NOT_FOUND,
-        );
+        throw new APIError('TODO not found', ErrorCode.RESOURCE_NOT_FOUND);
       return todo;
     } catch (error) {
       if (error instanceof Error) {
-        this.handleError(error, 'getById');
+        this.handleError(error);
       }
       return null;
     }
@@ -56,7 +40,7 @@ export class TODODataSourceImpl implements TODODataSource {
       return todos;
     } catch (error) {
       if (error instanceof Error) {
-        this.handleError(error, 'all');
+        this.handleError(error);
       }
       return null;
     }
@@ -69,7 +53,7 @@ export class TODODataSourceImpl implements TODODataSource {
       return newTODO;
     } catch (error) {
       if (error instanceof Error) {
-        this.handleError(error, 'create');
+        this.handleError(error);
       }
       return null;
     }
@@ -82,10 +66,8 @@ export class TODODataSourceImpl implements TODODataSource {
       const repository = datasource.getRepository(TODOModel);
       const todo = await repository.findOne({ where: { id } });
       if (todo === null)
-        throw new RepositoryError(
+        throw new APIError(
           'Cannot update a TODO that does not exist',
-          'update',
-          this.name,
           ErrorCode.RESOURCE_NOT_FOUND,
         );
       repository.merge(todo, changes.values);
@@ -93,7 +75,7 @@ export class TODODataSourceImpl implements TODODataSource {
       return updatedTODO;
     } catch (error) {
       if (error instanceof Error) {
-        this.handleError(error, 'update');
+        this.handleError(error);
       }
       return null;
     }
@@ -103,17 +85,15 @@ export class TODODataSourceImpl implements TODODataSource {
       const repository = datasource.getRepository(TODOModel);
       const todo = await repository.findOne({ where: { id } });
       if (todo === null)
-        throw new RepositoryError(
+        throw new APIError(
           'Cannot delete a TODO that does not exist',
-          'delete',
-          this.name,
           ErrorCode.RESOURCE_NOT_FOUND,
         );
       await repository.remove(todo);
       return todo;
     } catch (error) {
       if (error instanceof Error) {
-        this.handleError(error, 'delete');
+        this.handleError(error);
       }
       return null;
     }

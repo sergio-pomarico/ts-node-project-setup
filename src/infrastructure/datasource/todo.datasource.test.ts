@@ -2,7 +2,7 @@ import { TODODataSourceImpl } from '#infrastructure/datasource/todo';
 
 import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
 import { database } from '#infrastructure/data/connection';
-import { RepositoryError } from '#domain/errors/repository';
+import { APIError } from '#domain/errors/api';
 
 describe('TODO DataSource test', () => {
   const todoDataSource = new TODODataSourceImpl();
@@ -51,7 +51,7 @@ describe('TODO DataSource test', () => {
     } catch (error) {
       if (error instanceof Error) {
         // Assert
-        expect(error instanceof RepositoryError).toBe(true);
+        expect(error instanceof APIError).toBe(true);
       }
     }
   });
@@ -77,7 +77,7 @@ describe('TODO DataSource test', () => {
     } catch (error) {
       if (error instanceof Error) {
         // Assert
-        expect(error instanceof RepositoryError).toBe(true);
+        expect(error instanceof APIError).toBe(true);
       }
     }
   });
@@ -88,7 +88,7 @@ describe('TODO DataSource test', () => {
     } catch (error) {
       if (error instanceof Error) {
         // Assert
-        expect(error instanceof RepositoryError).toBe(true);
+        expect(error instanceof APIError).toBe(true);
       }
     }
   });
