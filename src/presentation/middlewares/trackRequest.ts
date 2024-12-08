@@ -31,7 +31,6 @@ class TrackRequestMiddleware {
       res.removeListener('finish', logFn);
       res.removeListener('close', abortFn);
       res.removeListener('error', errorFn);
-      this.start = null;
     };
 
     const logFn = () => {
