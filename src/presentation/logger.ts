@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
 import pino, {
+  DestinationStream,
   Logger as PinoLogger,
   transport as PinoTransport,
   levels,
@@ -8,20 +9,20 @@ import pino, {
 @injectable()
 export class Logger {
   constructor() {
-    const transport = PinoTransport({
+    const transport: DestinationStream = PinoTransport({
       targets: [
         {
           target: 'pino-pretty',
           options: {
-            destination: './log/errors.log',
+            destination: './log/output.log',
             mkdir: true,
             colorize: false,
-            level: 'error',
           },
         },
         {
           target: 'pino-pretty',
           options: {
+            destination: process.stdout.fd,
             colorize: true,
           },
         },
@@ -37,23 +38,23 @@ export class Logger {
 
   private logger: PinoLogger;
 
-  info(message: string) {
-    this.logger.info(message);
+  info(message: string, args?: unknown) {
+    this.logger.info(args, message);
   }
 
-  warn(message: string) {
-    this.logger.warn(message);
+  warn(message: string, args?: unknown) {
+    this.logger.warn(args, message);
   }
 
-  error(message: string) {
-    this.logger.error(message);
+  error(message: string, args?: unknown) {
+    this.logger.error(args, message);
   }
 
-  debug(message: string) {
-    this.logger.debug(message);
+  debug(message: string, args?: unknown) {
+    this.logger.debug(args, message);
   }
 
-  trace(message: string) {
-    this.logger.trace(message);
+  trace(message: string, args?: unknown) {
+    this.logger.trace(args, message);
   }
 }
