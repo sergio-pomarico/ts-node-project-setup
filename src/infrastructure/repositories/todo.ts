@@ -1,7 +1,7 @@
-import TODOEntity from '#domain/entities/todo';
-import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
-import { TODORepository } from '#domain/repositories/todo';
-import { TODODataSource } from '#domain/datasource/todo';
+import TODOEntity from '@domain/entities/todo';
+import { CreateTodoDTO, UpdateTodoDTO } from '@domain/dto/todo';
+import { TODORepository } from '@domain/repositories/todo';
+import { TODODataSource } from '@domain/datasource/todo';
 import { inject, injectable } from 'inversify';
 
 @injectable()

@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { TODOsController } from '#presentation/controllers/todos';
-import { createTodoSchema, updateTodoSchema } from '#presentation/schemas/todo';
-import { schemaValidation } from '#presentation/middlewares/todo';
-import container from '#infrastructure/dependencies/container';
+import { TODOsController } from '@presentation/controllers/todos';
+import { createTodoSchema, updateTodoSchema } from '@presentation/schemas/todo';
+import { schemaValidation } from '@presentation/middlewares/todo';
+import container from '@infrastructure/dependencies/container';
 
 export class TODOsRoutes {
   constructor(public readonly router = Router()) {

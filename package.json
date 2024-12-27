@@ -8,10 +8,10 @@
     "prebuild": "rimraf ./dist",
     "lint": "eslint './src/**' --fix",
     "format": "prettier --check './src/**'",
-    "build": "tsc",
-    "dev": "tsnd --env-file .env --respawn --transpile-only --exit-child src/app.ts",
-    "start": "npm run build && node --env-file .env ./dist/app.js",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests",
+    "build": "tsc && tsc-alias",
+    "dev": "tsnd --env-file .env --respawn --transpile-only --exit-child -r tsconfig-paths/register src/app.ts",
+    "start": "node --env-file .env ./dist/app.js",
+    "test": "jest --passWithNoTests",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
     "typeorm": "ts-node ./node_modules/.bin/typeorm -d ./src/infrastructure/data/connection.ts",
@@ -30,17 +30,6 @@
     "url": "https://github.com/sergio-pomarico/ts-node-projectp-setup/issues"
   },
   "homepage": "https://github.com/sergio-pomarico/ts-node-projectp-setup#readme",
-  "imports": {
-    "#presentation/*": [
-      "./src/presentation/*.ts"
-    ],
-    "#infrastructure/*": [
-      "./src/infrastructure/*.ts"
-    ],
-    "#domain/*": [
-      "./src/domain/*.ts"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "^19.2.0",
     "@commitlint/config-conventional": "^19.1.0",
@@ -61,6 +50,8 @@
     "supertest": "^6.3.4",
     "ts-jest": "^29.1.2",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.0"
   },
   "dependencies": {

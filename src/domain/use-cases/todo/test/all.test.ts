@@ -1,5 +1,5 @@
-import { GetAllTodoUseCase } from '#domain/use-cases/todo/all';
-import TODOEntity from '#domain/entities/todo';
+import { GetAllTodoUseCase } from '@domain/use-cases/todo/all';
+import TODOEntity from '@domain/entities/todo';
 import { randomUUID } from 'node:crypto';
 
 describe('GetAllTodoUseCase test', () => {

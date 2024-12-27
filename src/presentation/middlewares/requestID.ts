@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from 'express';
 import { randomUUID } from 'node:crypto';
 import { AsyncLocalStorage } from 'async_hooks';
-import { Logger } from '#presentation/logger';
+import { Logger } from '@presentation/logger';
 
 class AddRequestIDMiddleware {
   constructor(

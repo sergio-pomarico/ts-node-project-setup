@@ -1,4 +1,4 @@
-import TODOEntity from 'domain/entities/todo';
+import TODOEntity from '@domain/entities/todo';
 
 export class CreateTodoDTO {
   private constructor(

@@ -1,6 +1,6 @@
-import { ErrorCode } from '#domain/errors/code';
-import { HttpError } from '#domain/errors/http';
-import { APIError } from '#domain/errors/api';
+import { ErrorCode } from '@domain/errors/code';
+import { HttpError } from '@domain/errors/http';
+import { APIError } from '@domain/errors/api';
 import { NextFunction, Response, Request } from 'express';
 
 const errorMiddleware = (

@@ -1,7 +1,7 @@
-import { TODODataSource } from '#domain/datasource/todo';
-import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
-import TODOEntity from '#domain/entities/todo';
-import { TODORepositoryImpl } from '#infrastructure/repositories/todo';
+import { TODODataSource } from '@domain/datasource/todo';
+import { CreateTodoDTO, UpdateTodoDTO } from '@domain/dto/todo';
+import TODOEntity from '@domain/entities/todo';
+import { TODORepositoryImpl } from '@infrastructure/repositories/todo';
 import { randomUUID } from 'node:crypto';
 
 describe('TODO Repository test', () => {

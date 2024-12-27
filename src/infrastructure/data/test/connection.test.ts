@@ -1,4 +1,4 @@
-import { Database } from '#infrastructure/data/connection';
+import { Database } from '@infrastructure/data/connection';
 import { env } from '../../../config/env';
 
 describe('test database connection', () => {

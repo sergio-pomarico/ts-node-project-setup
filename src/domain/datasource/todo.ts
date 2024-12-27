@@ -1,5 +1,5 @@
-import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
-import TODOEntity from '#domain/entities/todo';
+import { CreateTodoDTO, UpdateTodoDTO } from '@domain/dto/todo';
+import TODOEntity from '@domain/entities/todo';
 
 export interface TODODataSource {
   getById: (id: string) => Promise<TODOEntity | null>;

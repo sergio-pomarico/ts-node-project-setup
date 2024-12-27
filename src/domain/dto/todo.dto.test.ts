@@ -1,4 +1,4 @@
-import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
+import { CreateTodoDTO, UpdateTodoDTO } from '@domain/dto/todo';
 
 describe('CreateTodoDTO test', () => {
   test('should create a CreateTodoDTO', () => {

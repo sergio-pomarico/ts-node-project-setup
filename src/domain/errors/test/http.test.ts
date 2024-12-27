@@ -1,5 +1,5 @@
-import { ErrorCode } from '#domain/errors/code';
-import { HttpError } from '#domain/errors/http';
+import { ErrorCode } from '@domain/errors/code';
+import { HttpError } from '@domain/errors/http';
 
 describe('test HttpError', () => {
   test('should create a HttpError with status "error" and statusCode 400', () => {

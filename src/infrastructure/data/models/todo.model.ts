@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import BaseModel from './base.model';
-import TODOEntity from '#domain/entities/todo';
+import TODOEntity from '@domain/entities/todo';
 
 @Entity({ name: 'todo' })
 export default class TODOModel extends BaseModel implements TODOEntity {

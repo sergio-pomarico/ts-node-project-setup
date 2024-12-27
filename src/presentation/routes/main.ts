@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
-import { options } from '#presentation/swagger';
+import { options } from '@presentation/swagger';
 import { TODOsRoutes } from './todos';
 
 export class AppRoutes {

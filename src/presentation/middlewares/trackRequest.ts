@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
-import { Logger } from '#presentation/logger';
+import { Logger } from '@presentation/logger';
 
 class TrackRequestMiddleware {
   constructor(private logger = new Logger()) {}

@@ -1,8 +1,8 @@
 import request from 'supertest';
-import { Server } from '#presentation/server';
-import { database } from '#infrastructure/data/connection';
-import TODOEntity from '#domain/entities/todo';
-import { ErrorCode } from '#domain/errors/code';
+import { Server } from '@presentation/server';
+import { database } from '@infrastructure/data/connection';
+import TODOEntity from '@domain/entities/todo';
+import { ErrorCode } from '@domain/errors/code';
 
 describe('testing TODO routes', () => {
   let server: Server;

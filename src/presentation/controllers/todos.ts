@@ -1,17 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
-import { TODORepository } from '#domain/repositories/todo';
-import { GetTodoByIdUseCase } from '#domain/use-cases/todo/get-by-id';
-import { CreateTodoUseCase } from '#domain/use-cases/todo/create';
-import { GetAllTodoUseCase } from '#domain/use-cases/todo/all';
-import { UpdateTodoUseCase } from '#domain/use-cases/todo/update';
-import { DeleteTodoUseCase } from '#domain/use-cases/todo/delete';
+import { CreateTodoDTO, UpdateTodoDTO } from '@domain/dto/todo';
+import { TODORepository } from '@domain/repositories/todo';
+import { GetTodoByIdUseCase } from '@domain/use-cases/todo/get-by-id';
+import { CreateTodoUseCase } from '@domain/use-cases/todo/create';
+import { GetAllTodoUseCase } from '@domain/use-cases/todo/all';
+import { UpdateTodoUseCase } from '@domain/use-cases/todo/update';
+import { DeleteTodoUseCase } from '@domain/use-cases/todo/delete';
 import { inject, injectable } from 'inversify';
+import { Logger } from '@presentation/logger';
 
 @injectable()
 export class TODOsController {
   constructor(
     @inject('TODORepository') private readonly repository: TODORepository,
+    @inject('Logger') private readonly logger: Logger,
   ) {}
 
   getById = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,6 +33,7 @@ export class TODOsController {
   };
 
   all = async (req: Request, res: Response, next: NextFunction) => {
+    //this.logger.info('Get all TODOs');
     new GetAllTodoUseCase(this.repository)
       .run()
       .then((todos) => res.json({ status: 'success', todos }))

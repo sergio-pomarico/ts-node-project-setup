@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { AnyZodObject, ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
-import { HttpError } from '#domain/errors/http';
-import { ErrorCode } from '#domain/errors/code';
+import { HttpError } from '@domain/errors/http';
+import { ErrorCode } from '@domain/errors/code';
 
 export const schemaValidation =
   (schema: AnyZodObject) =>

@@ -1,16 +1,16 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { TODODataSourceImpl } from '#infrastructure/datasource/todo';
-import { TODORepositoryImpl } from '#infrastructure/repositories/todo';
-import { TODOsController } from '#presentation/controllers/todos';
-import { CreateTodoUseCase } from '#domain/use-cases/todo/create';
-import { TODODataSource } from '#domain/datasource/todo';
-import { TODORepository } from '#domain/repositories/todo';
-import { GetAllTodoUseCase } from '#domain/use-cases/todo/all';
-import { DeleteTodoUseCase } from '#domain/use-cases/todo/delete';
-import { GetTodoByIdUseCase } from '#domain/use-cases/todo/get-by-id';
-import { UpdateTodoUseCase } from '#domain/use-cases/todo/update';
-import { Logger } from '#presentation/logger';
+import { TODODataSourceImpl } from '@infrastructure/datasource/todo';
+import { TODORepositoryImpl } from '@infrastructure/repositories/todo';
+import { TODOsController } from '@presentation/controllers/todos';
+import { CreateTodoUseCase } from '@domain/use-cases/todo/create';
+import { TODODataSource } from '@domain/datasource/todo';
+import { TODORepository } from '@domain/repositories/todo';
+import { GetAllTodoUseCase } from '@domain/use-cases/todo/all';
+import { DeleteTodoUseCase } from '@domain/use-cases/todo/delete';
+import { GetTodoByIdUseCase } from '@domain/use-cases/todo/get-by-id';
+import { UpdateTodoUseCase } from '@domain/use-cases/todo/update';
+import { Logger } from '@presentation/logger';
 
 const container = new Container();
 

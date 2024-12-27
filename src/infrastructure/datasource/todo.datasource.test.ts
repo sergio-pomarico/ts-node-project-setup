@@ -1,8 +1,8 @@
-import { TODODataSourceImpl } from '#infrastructure/datasource/todo';
+import { TODODataSourceImpl } from '@infrastructure/datasource/todo';
 
-import { CreateTodoDTO, UpdateTodoDTO } from '#domain/dto/todo';
-import { database } from '#infrastructure/data/connection';
-import { APIError } from '#domain/errors/api';
+import { CreateTodoDTO, UpdateTodoDTO } from '@domain/dto/todo';
+import { database } from '@infrastructure/data/connection';
+import { APIError } from '@domain/errors/api';
 
 describe('TODO DataSource test', () => {
   const todoDataSource = new TODODataSourceImpl();

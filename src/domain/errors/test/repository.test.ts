@@ -1,4 +1,4 @@
-import { APIError } from '#domain/errors/api';
+import { APIError } from '@domain/errors/api';
 import { ErrorCode } from '../code';
 
 describe('test APIError', () => {
