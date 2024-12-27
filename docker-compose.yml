@@ -1,7 +1,17 @@
 version: '3.9'
 
 services:
-  postgres:
+  todo-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo_app
+    env_file: '.env'
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    depends_on:
+      - database
+  database:
     image: postgres:15.1
     container_name: todo_db
     logging:
@@ -11,6 +21,6 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
-      - 5432:${DB_PORT}
+      - ${DB_PORT}:${DB_PORT}
     volumes:
       - ./data:/var/lib/postgresql/data
